@@ -2,6 +2,7 @@ var userFormEl = document.querySelector("#user-form");
 var nameInputEl = document.querySelector("#username");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
+var limitWarningEl = document.querySelector("#limit-warning");
 
 var formSubmitHandler = function(event) {
   event.preventDefault();
@@ -50,8 +51,9 @@ var getUserRepos = function(user) {
     // format repo name
     var repoName = repos[i].owner.login + "/" + repos[i].name;  
     // create a container for each repo
-    var repoEl = document.createElement("div");
-    repoEl.classList = "list-item flex-row justify-space-between align-center"; 
+    var repoEl = document.createElement("a");
+    repoEl.classList = "list-item flex-row justify-space-between align-center";
+    repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
     // create a span element to hold repository name
     var titleEl = document.createElement("span");
     titleEl.textContent = repoName; 
@@ -74,6 +76,24 @@ var getUserRepos = function(user) {
     }
     console.log(repos);
     console.log(searchTerm);
+};
+
+var displayWarning = function(repo) {
+  // add text to warning container
+  limitWarningEl.textContent = "To see more than 30 issues, visit ";
+  var linkEl = document.createElement("a");
+  linkEl.textContent = "See More Issues on GitHub.com";
+  linkEl.setAttribute("href", "https://github.com/" + repo + "/issues");
+  linkEl.setAttribute("target", "_blank");
+
+  // append to warning container
+  limitWarningEl.appendChild(linkEl);  var linkEl = document.createElement("a");
+  linkEl.textContent = "See More Issues on GitHub.com";
+  linkEl.setAttribute("href", "https://github.com/" + repo + "/issues");
+  linkEl.setAttribute("target", "_blank");
+
+  // append to warning container
+  limitWarningEl.appendChild(linkEl);
 };
 
   
